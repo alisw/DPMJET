@@ -1,9 +1,6 @@
       
       SUBROUTINE OAUXFI ( FILE, IONUMB, CHSTTS, IERR )
 
-      INCLUDE '(DBLPRC)'
-      INCLUDE '(DIMPAR)'
-      INCLUDE '(IOUNIT)'
 *
 *----------------------------------------------------------------------*
 *                                                                      *
@@ -25,7 +22,19 @@
 *                                                                      *
 *----------------------------------------------------------------------*
 *
+
+#ifdef FOR_FLUKA
+      INCLUDE '(DBLPRC)'
+      INCLUDE '(DIMPAR)'
+      INCLUDE '(IOUNIT)'
       INCLUDE '(COMPUT)'
+#else
+      INCLUDE 'DBLPRC'
+      INCLUDE 'DIMPAR'
+      INCLUDE 'IOUNIT'
+      INCLUDE 'COMPUT'
+#endif
+      
 *
       CHARACTER FILE*(*), CHSTTS*(*), CARD*132, FSTATS*10, FFORM*12,
      &          FACCSS*10

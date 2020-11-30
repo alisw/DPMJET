@@ -22,9 +22,13 @@ C***********************************************************************
       PARAMETER (TINY10=1.0D-10,ONE=1.0D0,ZERO=0.0D0)
  
       LOGICAL lfirst , lfirdt , lfirph
- 
+#ifdef FOR_FLUKA
       INCLUDE '(DIMPAR)'
       INCLUDE '(PART)'
+#else
+      INCLUDE 'DIMPAR'
+      INCLUDE 'PART'
+#endif
  
       INCLUDE 'inc/pydat1'
  

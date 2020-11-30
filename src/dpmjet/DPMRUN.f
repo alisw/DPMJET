@@ -16,9 +16,13 @@ C
       INTEGER Iap , Iat , idp , IDPmev , IHEhad , IHEnuc , IHIjpr , 
      &        IHMapr , IHMata , Ijdpm , irej , Izp , Izt , kkmat
       SAVE 
- 
+
+#ifdef FOR_FLUKA
       INCLUDE '(IOUNIT)'
- 
+#else
+      INCLUDE 'IOUNIT'
+#endif
+
 C event flag
       INCLUDE 'inc/dtevno'
 C histogram indices for Fluka-interface related statistics

@@ -38,12 +38,19 @@ C
 C      IMPLICIT DOUBLE PRECISION (A-H,O-Z)
 C      SAVE
  
+#ifdef FOR_FLUKA
       INCLUDE '(DBLPRC)'
       INCLUDE '(DIMPAR)'
       INCLUDE '(IOUNIT)'
- 
       INCLUDE '(BEAMCM)'
       INCLUDE '(IOIOCM)'
+#else
+      INCLUDE 'DBLPRC'
+      INCLUDE 'DIMPAR'
+      INCLUDE 'IOUNIT'
+      INCLUDE 'BEAMCM'
+      INCLUDE 'IOIOCM'
+#endif
  
       DOUBLE PRECISION epn , Pinp , xdumb , xlim1 , xlim2 , xlim3
       INTEGER ibin , idp , IDPmev , Idpmfs , Idpmhk , Idpmvr , Ifdpm , 

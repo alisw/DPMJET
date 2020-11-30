@@ -35,11 +35,17 @@ C particle properties (BAMJET index convention)
       INCLUDE 'inc/dtpart'
 C names of hadrons used in input-cards
       INCLUDE 'inc/dtpain'
- 
+#ifdef FOR_FLUKA
       INCLUDE '(DIMPAR)'
       INCLUDE '(PAREVT)'
       INCLUDE '(EVAFLG)'
       INCLUDE '(FRBKCM)'
+#else
+      INCLUDE 'DIMPAR'
+      INCLUDE 'PAREVT'
+      INCLUDE 'EVAFLG'
+      INCLUDE 'FRBKCM'
+#endif
  
 C emulsion treatment
       INCLUDE 'inc/dtcomp'

@@ -1,8 +1,14 @@
 
       SUBROUTINE DT_RESNCL(Epn,Nloop,Mode)
- 
+
+#ifdef FOR_FLUKA
       INCLUDE '(DBLPRC)'
-      SAVE 
+#else
+      INCLUDE 'DBLPRC'
+#endif
+
+      SAVE
+
  
       DOUBLE PRECISION aip , aipz , ait , aitz , amsec , AMUAMU , 
      &                 chklev , dum , dum1 , dum2 , ebipot , Epn , 
