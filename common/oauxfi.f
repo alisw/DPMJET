@@ -1,9 +1,9 @@
       
       SUBROUTINE OAUXFI ( FILE, IONUMB, CHSTTS, IERR )
 
-      INCLUDE '(DBLPRC)'
-      INCLUDE '(DIMPAR)'
-      INCLUDE '(IOUNIT)'
+      INCLUDE 'dblprc.inc'
+      INCLUDE 'dimpar.inc'
+      INCLUDE 'iounit.inc'
 *
 *----------------------------------------------------------------------*
 *                                                                      *
@@ -25,7 +25,7 @@
 *                                                                      *
 *----------------------------------------------------------------------*
 *
-      INCLUDE '(COMPUT)'
+      INCLUDE 'comput.inc'
 *
       CHARACTER FILE*(*), CHSTTS*(*), CARD*132, FSTATS*10, FFORM*12,
      &          FACCSS*10

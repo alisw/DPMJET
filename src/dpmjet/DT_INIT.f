@@ -36,10 +36,10 @@ C particle properties (BAMJET index convention)
 C names of hadrons used in input-cards
       INCLUDE 'inc/dtpain'
  
-      INCLUDE '(DIMPAR)'
-      INCLUDE '(PAREVT)'
-      INCLUDE '(EVAFLG)'
-      INCLUDE '(FRBKCM)'
+      INCLUDE 'dimpar.inc'
+      INCLUDE 'parevt.inc'
+      INCLUDE 'evaflg.inc'
+      INCLUDE 'frbkcm.inc'
  
 C emulsion treatment
       INCLUDE 'inc/dtcomp'

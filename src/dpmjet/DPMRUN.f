@@ -17,7 +17,7 @@ C
      &        IHMapr , IHMata , Ijdpm , irej , Izp , Izt , kkmat
       SAVE 
  
-      INCLUDE '(IOUNIT)'
+      INCLUDE 'iounit.inc'
  
 C event flag
       INCLUDE 'inc/dtevno'

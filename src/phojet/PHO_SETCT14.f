@@ -3,7 +3,7 @@
       
 #ifdef FOR_FLUKA
       IMPLICIT DOUBLE PRECISION (A-H,O-Z)
-      INCLUDE '(IOUNIT)'
+      INCLUDE 'iounit.inc'
 #else
       IMPLICIT NONE
 #endif
