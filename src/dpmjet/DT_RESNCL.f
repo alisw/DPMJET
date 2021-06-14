@@ -1,7 +1,7 @@
 
       SUBROUTINE DT_RESNCL(Epn,Nloop,Mode)
  
-      INCLUDE '(DBLPRC)'
+      INCLUDE 'dblprc.inc'
       SAVE 
  
       DOUBLE PRECISION aip , aipz , ait , aitz , amsec , AMUAMU , 

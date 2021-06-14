@@ -54,9 +54,9 @@ C flags for input different options
 C particle properties (BAMJET index convention)
       INCLUDE 'inc/dtpart'
       
-      INCLUDE '(DIMPAR)'
-      INCLUDE '(GENSTK)'
-      INCLUDE '(RESNUC)'
+      INCLUDE 'dimpar.inc'
+      INCLUDE 'genstk.inc'
+      INCLUDE 'resnuc.inc'
       PARAMETER (EMVGEV=1.0D-03)
       PARAMETER (AMUGEV=0.93149432D+00)
       PARAMETER (AMPRTN=0.93827231D+00)
@@ -70,9 +70,9 @@ C particle properties (BAMJET index convention)
       PARAMETER (BEXC12=FERTHO*72.40715579499394D+00)
       PARAMETER (AMUNMU=HLFHLF*AMELCT-BEXC12/12.D+00)
       PARAMETER (AMUC12=AMUGEV-AMUNMU)
-      INCLUDE '(NUCDAT)'
-      INCLUDE '(PAREVT)'
-      INCLUDE '(FHEAVY)'
+      INCLUDE 'nucdat.inc'
+      INCLUDE 'parevt.inc'
+      INCLUDE 'fheavy.inc'
  
 C event flag
       INCLUDE 'inc/dtevno'

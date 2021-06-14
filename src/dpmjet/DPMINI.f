@@ -38,12 +38,12 @@ C
 C      IMPLICIT DOUBLE PRECISION (A-H,O-Z)
 C      SAVE
  
-      INCLUDE '(DBLPRC)'
-      INCLUDE '(DIMPAR)'
-      INCLUDE '(IOUNIT)'
+      INCLUDE 'dblprc.inc'
+      INCLUDE 'dimpar.inc'
+      INCLUDE 'iounit.inc'
  
-      INCLUDE '(BEAMCM)'
-      INCLUDE '(IOIOCM)'
+      INCLUDE 'beamcm.inc'
+      INCLUDE 'ioiocm.inc'
  
       DOUBLE PRECISION epn , Pinp , xdumb , xlim1 , xlim2 , xlim3
       INTEGER ibin , idp , IDPmev , Idpmfs , Idpmhk , Idpmvr , Ifdpm , 

@@ -36,10 +36,10 @@ C statistics: residual nuclei
 C parameter for intranuclear cascade
       INCLUDE 'inc/dtfoti'
  
-      INCLUDE '(DIMPAR)'
-      INCLUDE '(PAREVT)'
-      INCLUDE '(FRBKCM)'
-      INCLUDE '(EVAFLG)'
+      INCLUDE 'dimpar.inc'
+      INCLUDE 'parevt.inc'
+      INCLUDE 'frbkcm.inc'
+      INCLUDE 'evaflg.inc'
  
 C temporary storage for one final state particle
       INCLUDE 'inc/dtfspa'

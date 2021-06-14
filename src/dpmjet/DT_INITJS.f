@@ -23,8 +23,8 @@ C***********************************************************************
  
       LOGICAL lfirst , lfirdt , lfirph
  
-      INCLUDE '(DIMPAR)'
-      INCLUDE '(PART)'
+      INCLUDE 'dimpar.inc'
+      INCLUDE 'part.inc'
  
       INCLUDE 'inc/pydat1'
  
