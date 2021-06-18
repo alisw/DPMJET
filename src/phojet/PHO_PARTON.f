@@ -54,7 +54,8 @@ C  event weights and generated cross section
       INCLUDE 'inc/powght'
 C  internal rejection counters
       INCLUDE 'inc/poloop'
- 
+C  event information
+      INCLUDE 'inc/poevt1'
       Irej = 0
 C  clear event statistics
       KSPom = 0
@@ -385,9 +386,18 @@ C  sample strings to prepare fragmentation
             CALL PHO_PREVNT(-1)
             RETURN
          END IF
-         IF ( Iproc.EQ.5 ) id1a = id1a + 1
-         IF ( Iproc.EQ.6 ) id2a = id2a + 1
-         IF ( Iproc.EQ.7 ) id3a = id3a + 1
+         IF ( Iproc.EQ.5 ) THEN
+            id1a = id1a + 1
+            nsd1 = nsd1 + 1
+         ENDIF
+         IF ( Iproc.EQ.6 ) THEN
+            id2a = id2a + 1
+            nsd2 = nsd2 + 1
+         ENDIF
+         IF ( Iproc.EQ.7 ) THEN
+            id3a = id3a + 1
+            NDD = NDD + 1
+         ENDIF
  
 C-----------------------------------------------------------------------
 C  single / double direct processes

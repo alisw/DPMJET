@@ -1,7 +1,7 @@
 
       DOUBLE PRECISION BIMpac , RPRoj , RTArg
-      INTEGER NWAacc , NWAsam , NWBacc , NWBsam , NWTacc , NWTsam
- 
+      INTEGER NWAacc , NWAsam , NWBacc , NWBsam , NWTacc , NWTsam,
+     &        NCP, NCT
  
       COMMON /DTGLCP/ RPRoj , RTArg , BIMpac , NWTsam , NWAsam , 
-     &                NWBsam , NWTacc , NWAacc , NWBacc
+     &                NWBsam , NWTacc , NWAacc , NWBacc, NCP, NCT
