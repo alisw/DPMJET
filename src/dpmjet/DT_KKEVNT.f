@@ -13,7 +13,7 @@ C***********************************************************************
       DOUBLE PRECISION DT_RNDM , eprold , frac , rr , TINY10 , ZERO
       INTEGER iback , ipold , Irej , irej1 , itold , jjpold , jjproj , 
      &        Kkmat , MAXINT , MAXNCL , MAXSQU , MAXVQU , mode , nc , 
-     &        nevold , nn , np , nt
+     &        nevold , nn , np , nt, I
       SAVE 
  
       INCLUDE 'inc/dtflka'
@@ -63,7 +63,6 @@ C     LOGICAL LDBGPR
 #endif
  
       DATA nevold , ipold , itold , jjpold , eprold/4*0 , 0.0D0/
- 
       Irej = 0
       ICRequ = ICRequ + 1
       nc = 0
@@ -109,7 +108,6 @@ C in this case.
          jjproj = IJProj
       END IF
  
- 
 C*anfe 20.08.2016
 C Obsolete, since DT_PHOXS has been patched
 C **anfe 10.10.2015
@@ -143,6 +141,15 @@ C        END IF
          itold = IT
          jjpold = jjproj
          eprold = EPRoj
+C ALICE -->
+         DO 8 I = 1, IP
+            NCP = NCP + JSSH(I)
+    8    CONTINUE
+
+         DO 9 I = 1, IT
+            NCT = NCT + JTSH(I)
+    9    CONTINUE
+C ALICE <--
       END IF
  
 C force diffractive particle production in h-K interactions
