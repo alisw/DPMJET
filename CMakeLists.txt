@@ -797,7 +797,8 @@ install(TARGETS ${PROJECT_NAME}
   ARCHIVE DESTINATION lib
   LIBRARY DESTINATION lib)
 
-# Install data files and documentation
+# Install headers, data files and documentation
+install(DIRECTORY include DESTINATION .)
 install(DIRECTORY dpmdata DESTINATION .)
 install(DIRECTORY docs DESTINATION .)
 
