@@ -18,8 +18,9 @@ C***********************************************************************
      &                 PI , pltot , ppn , ppt , ptotgn , ptotln , px , 
      &                 py , pz , q2e , q2log , q2low , q2tmp
       DOUBLE PRECISION rat , sid , sif , sigmax , sigxx , stot , stotx , 
-     &                 theta , THREE , TINY10 , TINY4 , TWO , TWOPI , 
-     &                 weight , wgh , wghmax , wgy , xbj , xblow , xdumb
+     &                 spro, sprox, theta , THREE , TINY10 , TINY4 ,
+     &                 TWO , TWOPI , weight , wgh , wghmax , wgy , xbj ,
+     &                 xblow , xdumb
       DOUBLE PRECISION y , yeff , yq2 , yy , yytmp , ZERO
       INTEGER i , i1 , i2 , Idp , idppdg , IDT_IPDGHA , ievt , Iglau , 
      &        ihfle0 , ihfle1 , ihfle2 , ihflq0 , ihflq1 , ihflq2 , 
@@ -29,7 +30,11 @@ C***********************************************************************
      &        Ntchar , Ntmass
       SAVE 
  
+#if defined(FLDOTINCL) && defined(FOR_FLUKA)
+      INCLUDE 'inc/dtflka12ca'
+#else
       INCLUDE 'inc/dtflka'
+#endif
  
       PARAMETER (TINY10=1.0D-10,TINY4=1.0D-4,ZERO=0.0D0,ONE=1.0D0,
      &           TWO=2.0D0,THREE=3.0D0)
@@ -384,12 +389,12 @@ C  force Lab-system
 C  get emulsion component if requested
 C  convolute with cross section
             IF ( IEMul.GT.0 ) CALL DT_GETEMU(Ntmass,Ntchar,kkmat,0)
-            CALL DT_SIGGAT(q2low,egnxx,stotx,kkmat)
-            CALL DT_SIGGAT(Q2,ecmgn,stot,kkmat)
+            CALL DT_SIGGAT(q2low,egnxx,stotx,sprox,kkmat)
+            CALL DT_SIGGAT(Q2,ecmgn,stot,spro,kkmat)
  
             IF ( LPRi.GT.4 .AND. stotx.LT.stot )
      &            WRITE (LOUt,'(1X,A,/,6E12.3)')
-     &            'LAEVT: warning STOTX<STOT ! ' , q2low , egnmax , 
+     &            'LAEVT: warning STOTX<STOT !`` ' , q2low , egnmax , 
      &           stotx , Q2 , ecmgn , stot
             IF ( DT_RNDM(Q2)*stotx.GT.stot ) GOTO 250
             nc1 = nc1 + 1

@@ -44,7 +44,11 @@ C***********************************************************************
      &        MAXSQU , MAXVQU , Na , Nb , Nidx , nlines , NPOINT , ntarg
       SAVE 
  
+#if defined(FLDOTINCL) && defined(FOR_FLUKA)
+      INCLUDE 'inc/dtflka12ca'
+#else
       INCLUDE 'inc/dtflka'
+#endif
  
       COMPLEX*16 czero , cone , ctwo
       CHARACTER*12 cfile
@@ -78,6 +82,12 @@ C VDM parameter for photon-nucleus interactions
 C parameters for hA-diffraction
       INCLUDE 'inc/dtdiha'
  
+#ifdef FOR_CORSIKA
+cdh  datadir for path to the data sets to be read in by dpmjet/phojet
+      COMMON /DATADIR/ DATADIR
+      CHARACTER*132    DATADIR
+#endif
+
       COMPLEX*16 pp11(MAXNCL) , pp12(MAXNCL) , pp21(MAXNCL) , 
      &           pp22(MAXNCL) , ompp11 , ompp12 , ompp21 , ompp22 , 
      &           dipp11 , dipp12 , dipp21 , dipp22 , avdipp , pptmp1 , 
@@ -106,10 +116,22 @@ C not needed for these interactions..
          i = INDEX(CGLb,' ')
          IF ( i.EQ.0 ) THEN
             cfile = CGLb//'.glb'
+#ifndef FOR_CORSIKA
             OPEN (LDAt,FILE=CGLb//'.glb',STATUS='UNKNOWN')
+#else
+c  modification for use with corsika using path to data file in DATADIR
+            OPEN(LDAT,STATUS='UNKNOWN',
+     &        FILE=DATADIR(1:INDEX(DATADIR,' ')-1)//CGLB//'.glb')
+#endif
          ELSE IF ( i.GT.1 ) THEN
             cfile = CGLb(1:i-1)//'.glb'
+#ifndef FOR_CORSIKA
             OPEN (LDAt,FILE=CGLb(1:i-1)//'.glb',STATUS='UNKNOWN')
+#else
+c  modification for use with corsika using path to data file in DATADIR
+            OPEN(LDAT,STATUS='UNKNOWN',
+     &        FILE=DATADIR(1:INDEX(DATADIR,' ')-1)//CGLB(1:I-1)//'.glb')
+#endif
          ELSE
             STOP 'XSGLAU 1'
          END IF
@@ -174,8 +196,7 @@ C  maximum impact-parameter
  
 C slope, rho ( Re(f(0))/Im(f(0)) )
       IF ( ((ijproj.LE.40) .OR. ((ijproj.GE.97) .AND. (ijproj.LE.103))
-     &     .OR. (ijproj.EQ.109) .OR. (ijproj.EQ.115)) .AND. 
-     &     (ijproj.NE.7) ) THEN
+     &     .OR. (ijproj.EQ.109) .OR. (ijproj.EQ.115)) ) THEN
          IF ( MCGene.EQ.2 ) THEN
             zero1 = ZERO
             CALL DT_PHOXS(ijproj,1,ECMnn(Ie),zero1,sdum1,sdum2,sdum3,

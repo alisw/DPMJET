@@ -9,6 +9,10 @@ C           IDXCAS    index of final state particle in DTEVT1          *
 C           NCAS =  1 intranuclear cascade in projectile               *
 C                = -1 intranuclear cascade in target                   *
 C This version dated 18.11.95 is written by S. Roesler                 *
+C                                                                      *
+C Adapted to Fluka202x on  17-Sep-21   by    Alfredo Ferrari           *
+C                                                Private               *
+C                                                                      *
 C***********************************************************************
  
       IMPLICIT NONE
@@ -35,7 +39,11 @@ C***********************************************************************
      &        j , j1 , k , mode , Ncas , npauli , nspe , nwtmp
       SAVE 
  
+#if defined(FLDOTINCL) && defined(FOR_FLUKA)
+      INCLUDE 'inc/dtflka12ca'
+#else
       INCLUDE 'inc/dtflka'
+#endif
  
       PARAMETER (TINY10=1.0D-10,TINY2=1.0D-2,ZERO=0.0D0,DLARGE=1.0D10,
      &           OHALF=0.5D0,ONE=1.0D0)
@@ -503,6 +511,7 @@ C 2-nucleon absorption of pion
          ELSE
 C sample secondary interaction
             idnuc = IDBam(idxspe(1))
+            Lhadcl=.False.
             CALL DT_HADRIN(idcas,pcas1,idnuc,pnuc,iproc,irej1)
             IF ( irej1.EQ.1 ) THEN
                Irej = 1
@@ -561,8 +570,13 @@ C   get nuclear potential barrier
 C   final state particle not able to escape nucleus
                   IF ( pe.LE.potlow ) THEN
 C     check if there are wounded nucleons
+C   AFer: Protecting NWOund(idx)>=1 in this way does not work, the
+C         compiler can well check 1st the 2nd condition or both
+C         and therefore still result in an array out of boundary
+*                    IF ( (NWOund(idx).GE.1) .AND. 
+*    &                    (pe.GE.EWOund(idx,NWOund(idx))) ) THEN
                      IF ( (NWOund(idx).GE.1) .AND. 
-     &                    (pe.GE.EWOund(idx,NWOund(idx))) ) THEN
+     &                    (pe.GE.EWOund(idx,Max(NWOund(idx),1))) ) THEN
                         npauli = npauli + 1
                         NWOund(idx) = NWOund(idx) - 1
                      ELSE

@@ -11,7 +11,11 @@ C***********************************************************************
      &        Mode , NDIM , nteva1 , nteva2
       SAVE 
  
+#if defined(FLDOTINCL) && defined(FOR_FLUKA)
+      INCLUDE 'inc/dtflka12ca'
+#else
       INCLUDE 'inc/dtflka'
+#endif
  
       PARAMETER (ZERO=0.0D0,ONE=1.0D0,TWO=2.0D0,TINY14=1.0D-14)
       PARAMETER (NDIM=199)
@@ -36,10 +40,18 @@ C statistics: residual nuclei
 C parameter for intranuclear cascade
       INCLUDE 'inc/dtfoti'
  
+#if defined(FLINCINCL) && defined(FOR_FLUKA)
+      INCLUDE 'inc/flkdim'
+      INCLUDE 'inc/flkevf'
+      INCLUDE 'inc/flkpev'
+#elif defined(FLDOTINCL) && defined(FOR_FLUKA)
       INCLUDE 'dimpar.inc'
-      INCLUDE 'parevt.inc'
-      INCLUDE 'frbkcm.inc'
       INCLUDE 'evaflg.inc'
+      INCLUDE 'frbkcm.inc'
+      INCLUDE 'parevt.inc'
+#else
+      INCLUDE 'inc/dpmpev'
+#endif
  
 C temporary storage for one final state particle
       INCLUDE 'inc/dtfspa'

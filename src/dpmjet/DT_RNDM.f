@@ -1,3 +1,4 @@
+#if !(defined(FOR_CORSIKA) || defined(CHROMO))
 
       DOUBLE PRECISION FUNCTION DT_RNDM(Vdummy)
 C***********************************************************************
@@ -92,3 +93,4 @@ C uncomment if needed
 C     IRNCT0 = IRNCT0+1
  
       END FUNCTION
+#endif

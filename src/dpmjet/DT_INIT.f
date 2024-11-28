@@ -27,7 +27,11 @@ C***********************************************************************
 #endif
       SAVE 
  
+#if defined(FLDOTINCL) && defined(FOR_FLUKA)
+      INCLUDE 'inc/dtflka12ca'
+#else
       INCLUDE 'inc/dtflka'
+#endif
  
       PARAMETER (ZERO=0.0D0,ONE=1.0D0)
  
@@ -36,10 +40,15 @@ C particle properties (BAMJET index convention)
 C names of hadrons used in input-cards
       INCLUDE 'inc/dtpain'
  
+#if defined(FLINCINCL) && defined(FOR_FLUKA)
+      INCLUDE 'inc/flkdim'
+      INCLUDE 'inc/flkpev'
+#elif defined(FLDOTINCL) && defined(FOR_FLUKA)
       INCLUDE 'dimpar.inc'
       INCLUDE 'parevt.inc'
-      INCLUDE 'evaflg.inc'
-      INCLUDE 'frbkcm.inc'
+#else
+      INCLUDE 'inc/dpmpev'
+#endif
  
 C emulsion treatment
       INCLUDE 'inc/dtcomp'
@@ -157,6 +166,8 @@ C   initialization and test of the random number generator
             CALL RNINIT(inseed,isrnd1,iseed1,iseed2)
  
          END IF
+#elif CHROMO
+C        CHROMO initializes random numbers externally
 #else
 C         CALL DT_RNDMTE(1)
          IF ( ITRspt.NE.1 ) CALL DT_RNDMST(22,54,76,92)
@@ -170,6 +181,7 @@ C   set default values for input variables
          CALL DT_DEFAUL(Epn,ppn)
          Iglau = 0
          ixsqel = 0
+         iflevg = 0
 C   flag for collision energy input
          leinp = .FALSE.
          lstart = .FALSE.
@@ -211,7 +223,8 @@ C  in this case Epn is expected to carry the beam momentum
          what(2) = 0
          codewd = 'START     '
          lext = .TRUE.
-         LEVprt = .TRUE.
+C AFer. now included above
+C        LEVprt = .TRUE.
          GOTO 300
       END IF
 #endif
@@ -761,8 +774,10 @@ C                                                                   *
 C********************************************************************
  
          IF ( ifirst.NE.99 ) THEN
+#ifndef CHROMO
             CALL DT_RNDMST(12,34,56,78)
             CALL DT_RNDMTE(1)
+#endif
             OPEN (40,FILE='outdata0/shm.out',STATUS='UNKNOWN')
 C        OPEN(11,FILE='outdata0/shm.dbg',STATUS='UNKNOWN')
             ifirst = 99
@@ -1790,7 +1805,7 @@ C     what (1..4)    values for initialization (= 1..168)           *
 C     what (5..6), sdum    no meaning                               *
 C                                                                   *
 C********************************************************************
- 
+#ifndef CHROMO
          IF ( (what(1).LT.1.0D0) .OR. (what(1).GT.168.0D0) ) THEN
             na1 = 22
          ELSE
@@ -1812,6 +1827,7 @@ C********************************************************************
             na4 = what(4)
          END IF
          CALL DT_RNDMST(na1,na2,na3,na4)
+#endif
          GOTO 100
       ELSE IF ( icw.EQ.54 ) THEN
  

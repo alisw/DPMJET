@@ -22,7 +22,11 @@ C***********************************************************************
      &        ntarg
       SAVE 
  
+#if defined(FLDOTINCL) && defined(FOR_FLUKA)
+      INCLUDE 'inc/dtflka12ca'
+#else
       INCLUDE 'inc/dtflka'
+#endif
  
       PARAMETER (TINY10=1.0D-10,TINY14=1.0D-14,ZERO=0.0D0,ONE=1.0D0,
      &           TWO=2.0D0)
@@ -54,6 +58,9 @@ C get actual energy from /DTLTRA/
       ECMnow = UMO
       Q2 = VIRt
 C
+#ifdef FOR_CORSIKA
+      if (LPRI.GT.4) write(LOUT,*)'DT_GLAUBE:IOGLB=',IOGLB,' NIDX=',NIDX
+#endif
 C new patch for pre-initialized variable projectile/target/energy runs
       IF ( IOGlb.NE.100 ) THEN
          i1 = 1

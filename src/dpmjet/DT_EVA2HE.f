@@ -11,10 +11,16 @@ C          = 2 target     residual nucleus                             *
 C This version dated 19.04.95 is written by S. Roesler.                *
 C***********************************************************************
       IMPLICIT DOUBLE PRECISION (A-H,O-Z)
+#if defined(FLINCINCL) && defined(FOR_FLUKA)
+      INCLUDE 'inc/flkeva'
+#elif defined(FLDOTINCL) && defined(FOR_FLUKA)
       INCLUDE 'dimpar.inc'
+      INCLUDE 'fheavy.inc'
       INCLUDE 'genstk.inc'
       INCLUDE 'resnuc.inc'
-      INCLUDE 'fheavy.inc'
+#else
+      INCLUDE 'inc/dpmeva'
+#endif
 
       DOUBLE PRECISION am , dum , Eexcf , pe , px , py , pz , TINY10 , 
      &                 TINY3
@@ -22,7 +28,11 @@ C***********************************************************************
      &        idum , iptokp , Ircl , Irej , iztot , Mo
       SAVE 
  
+#if defined(FLDOTINCL) && defined(FOR_FLUKA)
+      INCLUDE 'inc/dtflka12ca'
+#else
       INCLUDE 'inc/dtflka'
+#endif
  
       PARAMETER (TINY10=1.0D-10,TINY3=1.0D-3)
  
