@@ -4,22 +4,26 @@
       IMPLICIT NONE
       SAVE 
  
+#if defined(FLDOTINCL) && defined(FOR_FLUKA)
+      INCLUDE 'inc/dtflka12ca'
+#else
       INCLUDE 'inc/dtflka'
+#endif
  
       CHARACTER*6 cversi
       CHARACTER*11 cchang
-      DATA cversi , cchang/'19.1.2' , '15 Mar 2021'/
+      DATA cversi , cchang/'19.3.7' , '18 Mar 2023'/
  
       CALL DT_XTIME
  
-      IF ( LPRi.GT.4 ) WRITE (LOUt,99010) cversi , cchang
+      IF ( LPRi.GT.0 ) WRITE (LOUt,99010) cversi , cchang
 99010 FORMAT (1X,'+-------------------------------------------------',
      &        '----------------------+',/,1X,'|',71X,'|',/,1X,'|',23X,
      &        'DPMJET-III version ',A6,23X,'|',/,1X,'|',71X,'|',/,1X,
      &        '|',22X,'(Last change:  ',A11,')',22X,'|',/,1X,'|',71X,
      &        '|',/,1X,'|',12X,'Authors:',51X,'|',/,1X,'|',21X,
      &        'Stefan Roesler     (CERN)',25X,'|',/,1X,'|',21X,
-     &        'Anatoli Fedynitch  (ICRR)',25X,'|',/,1X,'|',21X,
+     &        'Anatoli Fedynitch (ASIoP)',25X,'|',/,1X,'|',21X,
      &        'Ralph Engel        (KIT) ',25X,'|',/,1X,'|',21X,
      &        'Johannes Ranft     (Siegen Univ.)',17X,'|',/,1X,'|',71X,
      &        '|',/,1X,'|',8X,'https://github.com/afedynitch/dpmjet',27X,

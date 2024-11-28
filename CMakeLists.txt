@@ -290,6 +290,7 @@ set(DPMJET_SRCS
   src/dpmjet/DT_CQPAIR.f
   src/dpmjet/DT_CROMSC.f
   src/dpmjet/DT_CRONIN.f
+  src/dpmjet/DT_CSTRMA.f
   src/dpmjet/DT_DALTRA.f
   src/dpmjet/DT_DAMG.f
   src/dpmjet/DT_DBETAR.f
@@ -422,7 +423,7 @@ set(DPMJET_SRCS
   src/dpmjet/DT_RJSEAC.f
   src/dpmjet/DT_RM2.f
   src/dpmjet/DT_RNCLUS.f
-#  src/dpmjet/DT_RNDM.f
+  src/dpmjet/DT_RNDM.f
   src/dpmjet/DT_RNDMIN.f
   src/dpmjet/DT_RNDMOU.f
   src/dpmjet/DT_RNDMST.f
@@ -763,8 +764,6 @@ set(PYTHIA_SRCS
 # DUMMY sources
 set(DUMMY_SRCS
   common/dummies.f
-  common/logging.f
-  common/oauxfi.f
   )
 
 # All Fortran sources
@@ -778,6 +777,7 @@ target_include_directories(${PROJECT_NAME} SYSTEM PUBLIC
   include/dpmjet
   include/flinclude
   include/pythia
+  include/common
   )
 
 # System dependent: Modify the way the library is build
@@ -786,7 +786,7 @@ if(${CMAKE_SYSTEM} MATCHES Darwin)
 endif(${CMAKE_SYSTEM} MATCHES Darwin)
 
 # Add executable
-add_executable(dpmjet.exe src/exe/DPMJET.f src/dpmjet/DT_RNDM.f)
+add_executable(dpmjet.exe src/exe/DPMJET.f)
 target_include_directories(dpmjet.exe SYSTEM PUBLIC
   include/dpmjet
   )
@@ -797,6 +797,7 @@ install(TARGETS ${PROJECT_NAME}
   LIBRARY DESTINATION lib)
 
 # Install data files and documentation
+install(DIRECTORY include DESTINATION .)
 install(DIRECTORY dpmdata DESTINATION .)
 install(DIRECTORY docs DESTINATION .)
 

@@ -67,7 +67,7 @@ C  hard cross sections and MC selection weights
  
       INCLUDE 'inc/pydat3'
  
-Cf2py intent(out) irej
+Cf2py intent(inout) irej
  
       INTEGER PYCOMP
       EXTERNAL PYCOMP, PHO_PMASS
@@ -82,10 +82,12 @@ C15   FORMAT(A12)
 C  define input/output units
       IF ( Linp.GE.0 ) THEN
          LPRi = 10
+#ifndef CHROMO
          CALL DT_RNDMST(22,54,76,92)
+#endif
          LI = Linp
-#ifndef FOR_FLUKA
-Cinitialize random number generator in standalone (-2) mode
+#if !(defined(FOR_FLUKA) || defined(CHROMO))
+C initialize random number generator in standalone (-2) mode
       ELSE IF ( Linp.EQ.-2 ) THEN
          CALL DT_RNDMST(22,54,76,92)
         ! CALL DT_RNDMTE(1)
@@ -99,42 +101,42 @@ Cinitialize random number generator in standalone (-2) mode
       LO = Lout
       Irej = 0
  
-      IF ( LPRi.GT.4 ) WRITE (LO,*)
-      IF ( LPRi.GT.4 ) WRITE (LO,*) 
+      IF ( LPRi.GT.0 ) WRITE (LO,*)
+      IF ( LPRi.GT.0 ) WRITE (LO,*) 
      &            ' ==================================================='
-      IF ( LPRi.GT.4 ) WRITE (LO,*) 
+      IF ( LPRi.GT.0 ) WRITE (LO,*) 
      &            '                                                    '
-      IF ( LPRi.GT.4 ) WRITE (LO,*) 
-     &            '   ----        PHOJET  19.1.2       ----   '
-      IF ( LPRi.GT.4 ) WRITE (LO,*) 
+      IF ( LPRi.GT.0 ) WRITE (LO,*) 
+     &            '   ----        PHOJET  19.3.7       ----   '
+      IF ( LPRi.GT.0 ) WRITE (LO,*) 
      &            '                                                    '
-      IF ( LPRi.GT.4 ) WRITE (LO,*) 
+      IF ( LPRi.GT.0 ) WRITE (LO,*) 
      &            ' ==================================================='
-      IF ( LPRi.GT.4 ) WRITE (LO,*)
+      IF ( LPRi.GT.0 ) WRITE (LO,*)
      &                         '     Authors: Ralph Engel         (KIT)'
-      IF ( LPRi.GT.4 ) WRITE (LO,*) 
-     &                        '              Anatoli Fedynitch   (ICRR)'
-      IF ( LPRi.GT.4 ) WRITE (LO,*) 
+      IF ( LPRi.GT.0 ) WRITE (LO,*) 
+     &                        '              Anatoli Fedynitch  (ASIoP)'
+      IF ( LPRi.GT.0 ) WRITE (LO,*) 
      &                '              Johannes Ranft      (Siegen Univ.)'
-      IF ( LPRi.GT.4 ) WRITE (LO,*) 
+      IF ( LPRi.GT.0 ) WRITE (LO,*) 
      &                        '              Stefan Roesler      (CERN)'
-      IF ( LPRi.GT.4 ) WRITE (LO,*) 
+      IF ( LPRi.GT.0 ) WRITE (LO,*) 
      &            ' ---------------------------------------------------'
-      IF ( LPRi.GT.4 ) WRITE (LO,*) 
+      IF ( LPRi.GT.0 ) WRITE (LO,*) 
      &                    '   bug reports, support and updates on:'
-      IF ( LPRi.GT.4 ) WRITE (LO,*)
+      IF ( LPRi.GT.0 ) WRITE (LO,*)
      &                    '     https://github.com/afedynitch/dpmjet'
-      IF ( LPRi.GT.4 ) WRITE (LO,*) 
+      IF ( LPRi.GT.0 ) WRITE (LO,*) 
      &            ' ==================================================='
-      IF ( LPRi.GT.4 ) WRITE (LO,*) '   Date: 2019/07/09'
-      IF ( LPRi.GT.4 ) WRITE (LO,*) '   Revision: 19.1.2'
+      IF ( LPRi.GT.0 ) WRITE (LO,*) '   Date: 2024/03/18'
+      IF ( LPRi.GT.0 ) WRITE (LO,*) '   Revision: 19.3.7'
  
-      IF ( LPRi.GT.4 ) WRITE (LO,*)
+      IF ( LPRi.GT.0 ) WRITE (LO,*)
      &                         '   Code with interface to PYTHIA 6.4.27'
  
-      IF ( LPRi.GT.4 ) WRITE (LO,*) 
+      IF ( LPRi.GT.0 ) WRITE (LO,*) 
      &            ' ==================================================='
-      IF ( LPRi.GT.4 ) WRITE (LO,*)
+      IF ( LPRi.GT.0 ) WRITE (LO,*)
  
 C  standard initializations
       CALL PHO_DATINI

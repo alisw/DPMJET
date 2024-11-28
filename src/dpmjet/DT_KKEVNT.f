@@ -7,6 +7,9 @@ C without nuclear effects (one event).                                 *
 C This subroutine is an update of the previous version (KKEVT) written *
 C by J. Ranft/ H.-J. Moehring.                                         *
 C This version dated 20.04.95 is written by S. Roesler                 *
+C Adapted to Fluka202x on  17-Sep-21   by    Alfredo Ferrari           *
+C                                                Private               *
+C                                                                      *
 C***********************************************************************
  
       IMPLICIT NONE
@@ -16,7 +19,11 @@ C***********************************************************************
      &        nevold , nn , np , nt, I
       SAVE 
  
+#if defined(FLDOTINCL) && defined(FOR_FLUKA)
+      INCLUDE 'inc/dtflka12ca'
+#else
       INCLUDE 'inc/dtflka'
+#endif
  
       PARAMETER (ZERO=0.0D0,TINY10=1.0D-10)
  
@@ -141,6 +148,8 @@ C        END IF
          itold = IT
          jjpold = jjproj
          eprold = EPRoj
+         NPHflk = np
+         NTHflk = nt
 C ALICE -->
          DO 8 I = 1, IP
             NCP = NCP + JSSH(I)

@@ -26,7 +26,11 @@ C***********************************************************************
       INTEGER maxlop , Mo1 , Mo2 , Mode , ngluon , npval , ntval
       SAVE 
  
+#if defined(FLDOTINCL) && defined(FOR_FLUKA)
+      INCLUDE 'inc/dtflka12ca'
+#else
       INCLUDE 'inc/dtflka'
+#endif
  
       PARAMETER (TINY10=1.0D-10,TINY1=1.0D-1,ZERO=0.0D0,ONE=1.0D0,
      &           OHALF=0.5D0)
@@ -53,8 +57,6 @@ C rejection counter
       INCLUDE 'inc/dtrejc'
  
 C  standard particle data interface
- 
- 
       INCLUDE 'inc/poevt1'
 C  extension to standard particle data interface (PHOJET specific)
       INCLUDE 'inc/poevt2'

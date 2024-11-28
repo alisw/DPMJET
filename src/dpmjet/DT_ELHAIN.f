@@ -18,7 +18,11 @@ C***********************************************************************
      &                 t , TINY10 , tmax , tslope , TWO , ZERO
       SAVE 
  
+#if defined(FLDOTINCL) && defined(FOR_FLUKA)
+      INCLUDE 'inc/dtflka12ca'
+#else
       INCLUDE 'inc/dtflka'
+#endif
  
       PARAMETER (TWO=2.0D0,ONE=1.0D0,OHALF=0.5D0,ZERO=0.0D0,
      &           TINY10=1.0D-10)
@@ -37,7 +41,13 @@ C     DATA TSLOPE /10.0D0/
       Irej = 0
  
  
- 100  plab = SQRT((Elab-AAM(Ip))*(Elab+AAM(Ip)))
+ 100  continue
+C  A.F.: protected, from rounding issues (it occurred...):
+      IF (Elab .LT. AAM(Ip)) THEN
+         IF ( AAM(Ip) - Elab .LT. 1.D-06 * AAM (Ip) )
+     &      Elab = AAM (Ip)
+      END IF
+      plab = SQRT((Elab-AAM(Ip))*(Elab+AAM(Ip)))
       ekin = Elab - AAM(Ip)
 C   kinematical quantities in cms of the hadrons
       amp2 = AAM(Ip)**2

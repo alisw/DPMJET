@@ -45,7 +45,7 @@ C  input/output channels
       OPEN (LDAt, FILE=FILNAM, STATUS="OLD")
 *
       CALL PHOJET_OPENINP()
-*      
+*
       RETURN
       END
       SUBROUTINE PHOJET_OPENINP()
